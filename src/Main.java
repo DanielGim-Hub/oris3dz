@@ -96,7 +96,6 @@ public class Main {
         }
     }
 
-    // Добавление пользователей
     public static void addUsers(UsersRepositoryJdbcImpl userRepository, int count) {
         for (int i = 0; i < count; i++) {
             System.out.println("Введите имя: ");
@@ -120,7 +119,6 @@ public class Main {
         }
     }
 
-    // Найти всех пользователей
     public static void findAllUsers(UsersRepositoryJdbcImpl userRepository) {
         try {
             List<User> users = userRepository.findAll();
@@ -134,7 +132,6 @@ public class Main {
         }
     }
 
-    // Найти пользователя по ID
     public static void findUserById(UsersRepositoryJdbcImpl userRepository, Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
@@ -144,14 +141,12 @@ public class Main {
         }
     }
 
-    // Обновить данные пользователя
     public static void updateUser(UsersRepositoryJdbcImpl userRepository, Long id) {
         Optional<User> existingUserOpt = userRepository.findById(id);
         if (existingUserOpt.isPresent()) {
             User existingUser = existingUserOpt.get();
             System.out.println("Данные пользователя до обновления: " + existingUser);
 
-            // Запрашиваем новые данные для пользователя
             System.out.println("Введите новое имя:");
             String firstName = scanner.nextLine();
             System.out.println("Введите новую фамилию:");
@@ -159,7 +154,6 @@ public class Main {
             System.out.println("Введите новый возраст:");
             int age = Integer.parseInt(scanner.nextLine());
 
-            // Создаём объект с обновлёнными данными
             User updatedUser = new User(id, firstName, lastName, age, existingUser.getEmail(), existingUser.getPhoneNumber(), existingUser.getCity(), existingUser.getCity());
             userRepository.update(updatedUser);
 
@@ -169,7 +163,6 @@ public class Main {
         }
     }
 
-    // Удалить пользователя
     public static void removeUser(UsersRepositoryJdbcImpl userRepository, Long id) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isPresent()) {
@@ -184,7 +177,6 @@ public class Main {
         }
     }
 
-    // Найти пользователей по возрасту
     public static void findUsersByAge(UsersRepositoryJdbcImpl userRepository, int age) {
         List<User> users = userRepository.findAllByAge(age);
         if (users.isEmpty()) {
@@ -194,7 +186,6 @@ public class Main {
         }
     }
 
-    // Найти пользователей по email
     public static void findUsersByEmail(UsersRepositoryJdbcImpl userRepository, String email) {
         List<User> users = userRepository.findAllByEmail(email);
         if (users.isEmpty()) {
@@ -204,7 +195,6 @@ public class Main {
         }
     }
 
-    // Найти пользователей по номеру телефона
     public static void findUsersByPhoneNumber(UsersRepositoryJdbcImpl userRepository, String phoneNumber) {
         List<User> users = userRepository.findAllByPhoneNumber(phoneNumber);
         if (users.isEmpty()) {
@@ -214,7 +204,6 @@ public class Main {
         }
     }
 
-    // Найти пользователей по городу
     public static void findUsersByCity(UsersRepositoryJdbcImpl userRepository, String city) {
         List<User> users = userRepository.findAllByCity(city);
         if (users.isEmpty()) {
