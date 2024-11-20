@@ -7,8 +7,9 @@ public class User {
     private String email;
     private String phoneNumber;
     private String city;
+    private String groupNumber;
 
-    public User(Long id, String firstName, String lastName, Integer age, String email, String phoneNumber, String city) {
+    public User(Long id, String firstName, String lastName, Integer age, String email, String phoneNumber, String city, String groupNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -16,6 +17,7 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.city = city;
+        this.groupNumber = groupNumber;
     }
 
     public Long getId() {
@@ -44,5 +46,21 @@ public class User {
 
     public String getCity() {
         return city;
+    }
+
+    public String getGroupNumber() {
+        return groupNumber;
+    }
+
+    @Override
+    public String toString() {
+        return  "id=" + id +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", age=" + age +
+                ", email=" + email +
+                ", phoneNumber=" + phoneNumber +
+                ", city=" + city +
+                ", groupNumber=" + groupNumber;
     }
 }

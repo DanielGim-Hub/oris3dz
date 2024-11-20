@@ -28,13 +28,15 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
                         resultSet.getInt("age"),
                         resultSet.getString("email"),
                         resultSet.getString("phone_number"),
-                        resultSet.getString("city")
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
                 );
                 result.add(user);
             }
         }
         return result;
     }
+
 
     @Override
     public Optional<User> findById(Long id) {
@@ -50,7 +52,8 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
                         resultSet.getInt("age"),
                         resultSet.getString("email"),
                         resultSet.getString("phone_number"),
-                        resultSet.getString("city")
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
                 );
                 return Optional.of(user);
             }
@@ -62,7 +65,7 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
 
     @Override
     public void save(User entity) {
-        String sql = "INSERT INTO driver (name, last_name, age, email, phone_number, city) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO driver (name, last_name, age, email, phone_number, city, group_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
@@ -70,11 +73,13 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
             statement.setString(4, entity.getEmail());
             statement.setString(5, entity.getPhoneNumber());
             statement.setString(6, entity.getCity());
+            statement.setString(7, entity.getGroupNumber());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void update(User entity) {
@@ -124,7 +129,8 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
                         resultSet.getInt("age"),
                         resultSet.getString("email"),
                         resultSet.getString("phone_number"),
-                        resultSet.getString("city")
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
                 );
                 result.add(user);
             }
@@ -147,7 +153,8 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
                         resultSet.getInt("age"),
                         resultSet.getString("email"),
                         resultSet.getString("phone_number"),
-                        resultSet.getString("city")
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
                 );
                 result.add(user);
             }
@@ -171,7 +178,8 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
                         resultSet.getInt("age"),
                         resultSet.getString("email"),
                         resultSet.getString("phone_number"),
-                        resultSet.getString("city")
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
                 );
                 result.add(user);
             }
@@ -195,7 +203,8 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
                         resultSet.getInt("age"),
                         resultSet.getString("email"),
                         resultSet.getString("phone_number"),
-                        resultSet.getString("city")
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
                 );
                 result.add(user);
             }
@@ -204,5 +213,31 @@ public class UsersRepositoryJdbcImpl implements UserRepository {
         }
         return result;
     }
+
+    public List<User> findAllByGroupNumber(String groupNumber) {
+        List<User> result = new ArrayList<>();
+        String sql = "SELECT * FROM driver WHERE group_number = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, groupNumber);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getInt("age"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("city"),
+                        resultSet.getString("group_number")
+                );
+                result.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }
